@@ -4,7 +4,7 @@ Esta guía es para quien tiene un servidor de Arma Reforger y quiere añadirle l
 
 ## Antes de empezar
 
-El mod **no funciona solo con añadirlo a la lista de mods del servidor**. Para que haya práctica, el herido, el instructor y el gestor tienen que estar colocados en el mapa. Eso se hace una vez en Workbench, dentro de **vuestro propio mod de escenario**, que es el que cargará el servidor.
+El mod **no funciona solo con añadirlo a la lista de mods del servidor**. Ya trae el **herido** y el **instructor** como prefabs, pero el instructor, el gestor y el punto de aparición tienen que estar colocados en vuestro mapa. Eso se hace una vez en Workbench, dentro de **vuestro propio mod de escenario**, que es el que cargará el servidor.
 
 ```
 Vuestro mod de escenario  (mapa + instructor + gestor + arsenal)
@@ -49,10 +49,9 @@ Si ya tenéis un mod propio para el servidor, con vuestro mapa o escenario, usad
 2. Colocad una entidad vacía (`GenericEntity`) donde queráis que aparezca el herido, orientada como queráis que quede tumbado.
 3. En sus propiedades, poned el **Name** exactamente: `MedTraining_Spawn`
 
-### 3.3 Prefab del herido
+### 3.3 Herido
 
-1. En el **Resource Browser**, buscad un personaje base (soldado o civil), clic derecho → **Duplicate**, y guardad la copia en vuestro proyecto como `MedTraining_Patient.et`.
-2. Abridlo y quitadle la IA (`AIControlComponent`), el arma y el equipo.
+No hay que colocarlo ni crear nada: el mod trae el prefab `Prefabs/Training/MedTraining_Patient.et` y el gestor lo hace aparecer en `MedTraining_Spawn` cuando empieza una práctica. Solo tenéis que seleccionarlo en el gestor (paso 3.4).
 
 ### 3.4 Gestor de la práctica
 
@@ -63,7 +62,7 @@ Si ya tenéis un mod propio para el servidor, con vuestro mapa o escenario, usad
 
 | Campo | Valor |
 | --- | --- |
-| Patient Prefab | `MedTraining_Patient.et` (el del paso 3.3) |
+| Patient Prefab | `Prefabs/Training/MedTraining_Patient.et` (incluido en el mod) |
 | Spawn Point Name | `MedTraining_Spawn` |
 | Task Prefab | Un `SCR_Task` básico de `Prefabs/Tasks/` (clic derecho → *Copy Resource Name*) |
 
@@ -73,11 +72,8 @@ El resto ya trae valores por defecto: 7 minutos de límite, un escenario por her
 
 ### 3.5 Instructor
 
-1. Colocad un NPC (o duplicad uno que ya uséis para otras actividades) junto a la zona.
-2. En su `ActionsManagerComponent`:
-   - **Action Contexts:** añadid uno (`MedTrainingContext`) con su `UIInfo` y su `Position` a la altura del pecho.
-   - **Additional Actions:** añadid `TAG_StartMedicalTrainingAction` y, si queréis, `TAG_CancelMedicalTrainingAction`.
-   - **Cada acción** necesita su propio `UIInfo` y el contexto asignado. Si falta, la acción no aparece.
+1. En el **Resource Browser**, buscad `Prefabs/Training/MedTraining_Instructor.et`.
+2. Arrastradlo al mapa junto a la zona de prácticas. Ya trae las acciones **Iniciar práctica de medicina** y **Cancelar práctica de medicina**; no hay que configurar nada.
 
 ### 3.6 Material médico
 
@@ -140,10 +136,10 @@ Entrad al servidor y probad una práctica. Si algo falla, mirad el log del servi
 | Mensaje | Qué hacer |
 | --- | --- |
 | `No existe el punto MedTraining_Spawn` | El *Name* de la entidad del paso 3.2 está mal escrito |
-| `No se pudo crear el herido` | *Patient Prefab* vacío en el gestor |
-| `El herido no tiene ACE_Medical_VitalsComponent` | Falta ACE Breathing/Circulation o el prefab del herido no es un personaje con ACE |
+| `No se pudo crear el herido` | *Patient Prefab* vacío en el gestor: seleccionad `MedTraining_Patient.et` |
+| `El herido no tiene ACE_Medical_VitalsComponent` | Falta ACE Breathing/Circulation en las dependencias |
 | `No existe la zona ACE_Medical_LFemoralArtery` | Falta ACE Medical Hitzones |
-| No aparece la acción en el instructor | Revisad el paso 3.5: `UIInfo` y contexto en cada acción |
+| No aparece la acción en el instructor | Usad el prefab `MedTraining_Instructor.et` del mod tal cual; si lo habéis duplicado o modificado, revisad su `ActionsManagerComponent` |
 | La acción no se bloquea para otros jugadores | Falta el `RplComponent` en el gestor |
 
 ## Actualizaciones
