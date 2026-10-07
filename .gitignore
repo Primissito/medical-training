@@ -1,0 +1,13 @@
+# Workbench / Enfusion
+# Nota: los archivos .meta SI se suben (guardan los GUID de los recursos)
+/profile/
+/logs/
+*.pak
+*.log
+*.bak
+*.tmp
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
