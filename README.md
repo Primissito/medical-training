@@ -4,6 +4,8 @@ Mod de Arma Reforger para servidores milsim: un instructor médico genera un her
 
 > **Estado:** en pruebas. El código usa la API de las ramas de desarrollo de [ACE-Anvil](https://github.com/acemod/ACE-Anvil) (`medical/add-breathing` y `medical/add-circulation`). Si vuestra versión de ACE del Workshop cambia algún nombre, saldrán errores de compilación en `ACE_Medical_*`.
 
+> **¿Tienes un servidor y quieres añadir las prácticas?** Sigue la [guía de setup para servidores](SETUP_SERVIDOR.md).
+
 ## Escenarios
 
 | Escenario | Mod de ACE | Qué tiene el herido | Qué tiene que hacer el alumno |
